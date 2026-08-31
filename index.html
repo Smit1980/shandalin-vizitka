@@ -114,11 +114,18 @@
     font-weight:600;
     text-transform:uppercase;
     letter-spacing:.002em;
-    /* Свет, падающий на монумент: монохромный градиент по тексту */
-    background:linear-gradient(175deg,#8e8e93 0%,#d8d6d2 42%,#ffffff 100%);
+    /* Переливание: блик проходит по тексту диагональю на повторе */
+    background:linear-gradient(100deg,#7d7d82 0%,#7d7d82 36%,#ffffff 50%,#7d7d82 64%,#7d7d82 100%);
+    background-size:240% 100%;
+    background-position:150% 0;
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent;
+  }
+  .js .name.in span{animation:shimmer 3.6s var(--enter) .85s infinite}
+  @keyframes shimmer{
+    from{background-position:150% 0}
+    to{background-position:-50% 0}
   }
   .agency{
     margin:1.5rem 0 0;
@@ -326,7 +333,8 @@
   /* Уважение к системной настройке «меньше движения» */
   @media (prefers-reduced-motion:reduce){
     .js .reveal,.js .name span{opacity:1;transform:none}
-    .js .dot{animation:none}
+    .js .dot,.js .name.in span{animation:none}
+    .js .name span{background-position:50% 0}
     .progress{animation:none;transform:scaleX(0)}
     *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
   }
