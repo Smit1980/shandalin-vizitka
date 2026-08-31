@@ -248,7 +248,12 @@
   }
   .phone:hover{color:var(--ember);border-color:var(--ember)}
   .note{margin:.9rem 0 0;color:var(--muted);font-size:.95rem}
-  .actions{margin-top:1.7rem}
+  .actions{
+    margin-top:1.7rem;
+    display:flex;
+    flex-wrap:wrap;
+    gap:.8rem;
+  }
   .btn{
     position:relative;
     display:inline-flex;
@@ -435,7 +440,10 @@
     </div>
     <a class="phone reveal" href="tel:+79634730159">+7 963 473-01-59</a>
     <p class="note reveal">Этот же номер — MAX и WhatsApp. Пишите или звоните, отвечаю лично.</p>
-    <p class="actions reveal"><a class="btn" href="https://wa.me/79634730159"><span>Написать в WhatsApp</span></a></p>
+    <p class="actions reveal">
+      <a class="btn" href="https://wa.me/79634730159"><span>WhatsApp</span></a>
+      <a class="btn" href="https://max.ru/u/f9LHodD0cOKMLjpP93TXn8BDP9J3eHp-b2-AoQfOYsbcB9do3dQOMUajbhM"><span>MAX</span></a>
+    </p>
   </section>
 
   <footer>
