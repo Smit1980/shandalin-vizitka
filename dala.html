@@ -492,7 +492,14 @@
   var timer = null;
 
   function sweep(){
-    var edge = window.innerHeight * 0.88;
+    // У самого низа страницы порог снимается совсем. Иначе всё, что попало в
+    // нижние 12% экрана на максимуме прокрутки, не проявится уже никогда:
+    // докрутить некуда, событий больше не будет. На высоком окне туда
+    // попадают именно телефон и кнопки мессенджеров — на визитке это ровно то,
+    // ради чего страницу открывают.
+    var atBottom = window.scrollY + window.innerHeight >=
+                   document.documentElement.scrollHeight - 2;
+    var edge = atBottom ? Infinity : window.innerHeight * 0.88;
     pending = pending.filter(function(el){
       // top < edge покрывает и то, что уже ушло вверх за экран
       if (el.getBoundingClientRect().top < edge) {
