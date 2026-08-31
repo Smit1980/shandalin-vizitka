@@ -11,6 +11,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
+<script>document.documentElement.className += " js";</script>
+
 <style>
   :root{
     --bg:#0d0d0f;
@@ -24,6 +26,13 @@
     --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
     --display:"Inter Tight","Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
     --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
+
+    /* Motion: кривые и длительности из системы Dylanbrouwer */
+    --enter:cubic-bezier(.32,.72,0,1);
+    --exit:cubic-bezier(.19,1,.22,1);
+    --t-micro:.3s;
+    --t-comp:.5s;
+    --t-page:.72s;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -43,6 +52,25 @@
     padding:clamp(2.5rem,9vw,4.5rem) clamp(1.25rem,5vw,2rem) clamp(3rem,8vw,5rem);
   }
 
+  /* Полоса прогресса прокрутки — только transform */
+  .progress{
+    position:fixed;
+    top:0;left:0;right:0;
+    height:1.5px;
+    background:var(--ember);
+    transform:scaleX(0);
+    transform-origin:0 50%;
+    z-index:20;
+    pointer-events:none;
+  }
+  @supports (animation-timeline:scroll()){
+    .progress{
+      animation:progress linear both;
+      animation-timeline:scroll(root);
+    }
+  }
+  @keyframes progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
   /* Моно-подписи: технические метаданные */
   .meta{
     font-family:var(--mono);
@@ -53,26 +81,42 @@
     color:var(--muted);
   }
 
-  /* Шапка */
+  /* ---------- Шапка ---------- */
   .kicker{
     display:flex;
     align-items:center;
     gap:.6rem;
     margin:0 0 1.6rem;
   }
-  .kicker::before{
-    content:"";
+  .dot{
     width:6px;height:6px;
     background:var(--ember);
     flex:none;
   }
+  .js .dot{animation:pulse 2.6s var(--exit) infinite}
+  @keyframes pulse{
+    0%,100%{opacity:1;transform:scale(1)}
+    50%{opacity:.35;transform:scale(.8)}
+  }
+
   .name{
     margin:0;
+    overflow:hidden;
+    padding-bottom:.1em;
+    margin-bottom:-.1em;
+  }
+  .name span{
+    display:block;
     font-family:var(--display);
     font-size:clamp(2.6rem,12.5vw,5rem);
     line-height:.95;
     font-weight:700;
     letter-spacing:-.04em;
+    /* Свет, падающий на монумент: монохромный градиент по тексту */
+    background:linear-gradient(175deg,#8e8e93 0%,#d8d6d2 42%,#ffffff 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
   }
   .agency{
     margin:1.5rem 0 0;
@@ -86,7 +130,7 @@
     color:var(--muted);
   }
 
-  /* Секции */
+  /* ---------- Секции ---------- */
   section{
     margin-top:clamp(3rem,9vw,4.5rem);
     padding-top:clamp(1.6rem,4vw,2rem);
@@ -112,7 +156,7 @@
   p{margin:0 0 1rem}
   p:last-child{margin-bottom:0}
 
-  /* Боли: нумерованные строки */
+  /* ---------- Боли ---------- */
   .rows{border-top:1px solid var(--line-soft)}
   .row{
     display:grid;
@@ -126,6 +170,7 @@
     font-size:.78rem;
     line-height:1.85;
     color:var(--ember);
+    transition:transform var(--t-micro) var(--enter);
   }
   .row h3{
     margin:0 0 .4rem;
@@ -135,11 +180,8 @@
     letter-spacing:-.015em;
     line-height:1.35;
   }
-  .row p{
-    margin:0;
-    font-size:.97rem;
-    color:var(--muted);
-  }
+  .row>div{transition:transform var(--t-micro) var(--enter)}
+  .row p{margin:0;font-size:.97rem;color:var(--muted)}
   .fact{
     display:block;
     margin-top:.55rem;
@@ -148,7 +190,13 @@
     letter-spacing:.02em;
     line-height:1.6;
     color:var(--dim);
+    transition:color var(--t-micro) var(--enter);
   }
+  @media (hover:hover){
+    .row:hover>div,.row:hover .idx{transform:translateX(6px)}
+    .row:hover .fact{color:var(--muted)}
+  }
+
   .sources{
     margin-top:1.5rem;
     font-family:var(--mono);
@@ -156,15 +204,16 @@
     letter-spacing:.04em;
     color:var(--dim);
   }
-  .sources a{color:var(--dim);text-decoration:none;border-bottom:1px solid var(--line)}
+  .sources a{color:var(--dim);text-decoration:none;border-bottom:1px solid var(--line);transition:color var(--t-micro) var(--enter)}
   .sources a:hover{color:var(--muted)}
 
-  /* Список услуг */
+  /* ---------- Список услуг ---------- */
   ul{margin:0;padding:0;list-style:none}
   li{
     position:relative;
     padding-left:1.5rem;
     margin-bottom:.85rem;
+    transition:transform var(--t-micro) var(--enter);
   }
   li:last-child{margin-bottom:0}
   li::before{
@@ -173,9 +222,14 @@
     left:0;top:.62em;
     width:5px;height:5px;
     background:var(--ember);
+    transition:transform var(--t-micro) var(--enter);
+  }
+  @media (hover:hover){
+    li:hover{transform:translateX(6px)}
+    li:hover::before{transform:scale(1.6)}
   }
 
-  /* Контакты */
+  /* ---------- Контакты ---------- */
   .phone{
     display:inline-block;
     min-height:44px;
@@ -188,27 +242,41 @@
     color:var(--text);
     text-decoration:none;
     border-bottom:1px solid var(--line);
-    transition:border-color .18s ease,color .18s ease;
+    transition:color var(--t-micro) var(--enter),border-color var(--t-micro) var(--enter);
   }
   .phone:hover{color:var(--ember);border-color:var(--ember)}
   .note{margin:.9rem 0 0;color:var(--muted);font-size:.95rem}
   .actions{margin-top:1.7rem}
   .btn{
+    position:relative;
     display:inline-flex;
     align-items:center;
     min-height:46px;
     padding:.6rem 1.5rem;
     border:1px solid var(--line);
     border-radius:0;
+    overflow:hidden;
     font-family:var(--mono);
     font-size:.78rem;
     letter-spacing:.1em;
     text-transform:uppercase;
     color:var(--text);
     text-decoration:none;
-    transition:border-color .18s ease,color .18s ease;
+    transition:color var(--t-micro) var(--enter),border-color var(--t-micro) var(--enter);
   }
-  .btn:hover{color:var(--ember);border-color:var(--ember)}
+  .btn::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:var(--ember);
+    transform:scaleX(0);
+    transform-origin:0 50%;
+    transition:transform var(--t-comp) var(--exit);
+    z-index:0;
+  }
+  .btn span{position:relative;z-index:1}
+  .btn:hover{border-color:var(--ember);color:var(--bg)}
+  .btn:hover::before{transform:scaleX(1)}
 
   footer{
     display:flex;
@@ -223,42 +291,69 @@
 
   a:focus-visible,.phone:focus-visible{outline:2px solid var(--ember);outline-offset:4px}
 
+  /* ---------- Появление ---------- */
+  .js .reveal{
+    opacity:0;
+    transform:translateY(16px);
+  }
+  .js .reveal.in{
+    opacity:1;
+    transform:none;
+    transition:opacity var(--t-page) var(--enter),transform var(--t-page) var(--enter);
+    transition-delay:calc(var(--i,0) * 70ms);
+  }
+  /* Имя выезжает из-под маски */
+  .js .name span{transform:translateY(105%)}
+  .js .name.in span{
+    transform:none;
+    transition:transform var(--t-page) var(--enter);
+  }
+
   @media (max-width:520px){
-    .row{grid-template-columns:1fr;gap:.5rem 0}
-    .idx{line-height:1.2}
     .head{gap:.75rem}
     .head .meta{white-space:normal;text-align:right}
+    .row{grid-template-columns:1fr;gap:.5rem 0}
+    .idx{line-height:1.2}
+  }
+
+  /* Уважение к системной настройке «меньше движения» */
+  @media (prefers-reduced-motion:reduce){
+    .js .reveal,.js .name span{opacity:1;transform:none}
+    .js .dot{animation:none}
+    .progress{animation:none;transform:scaleX(0)}
+    *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
   }
 </style>
 </head>
 <body>
+<div class="progress"></div>
 <div class="wrap">
 
   <header>
-    <p class="kicker meta">Создание проектов под ключ</p>
-    <h1 class="name">Денис Шандалин</h1>
-    <p class="agency">Агентство Новых Перспектив</p>
-    <p class="lede">Веду проекты автоматизации и внедрения ИИ в бизнес целиком — от задачи и сметы до процесса, который работает без меня.</p>
+    <p class="kicker meta reveal" style="--i:0"><span class="dot"></span>Создание проектов под ключ</p>
+    <h1 class="name"><span>Денис Шандалин</span></h1>
+    <p class="agency reveal" style="--i:3">Агентство Новых Перспектив</p>
+    <p class="lede reveal" style="--i:4">Веду проекты автоматизации и внедрения ИИ в бизнес целиком — от задачи и сметы до процесса, который работает без меня.</p>
   </header>
 
   <section>
-    <div class="head">
+    <div class="head reveal">
       <h2>Обо мне</h2>
       <span class="meta">01</span>
     </div>
-    <p>Я руковожу Агентством Новых Перспектив. Мы берём проект целиком: от первой идеи и сметы до запуска и передачи заказчику в рабочем состоянии.</p>
-    <p>Работаю без посредников между вами и результатом. Если задача выходит за рамки моей компетенции, говорю об этом сразу и подключаю тех, кто её закроет.</p>
+    <p class="reveal">Я руковожу Агентством Новых Перспектив. Мы берём проект целиком: от первой идеи и сметы до запуска и передачи заказчику в рабочем состоянии.</p>
+    <p class="reveal">Работаю без посредников между вами и результатом. Если задача выходит за рамки моей компетенции, говорю об этом сразу и подключаю тех, кто её закроет.</p>
   </section>
 
   <section>
-    <div class="head">
+    <div class="head reveal">
       <h2>С чем приходят</h2>
       <span class="meta">02 / Рынок 2026</span>
     </div>
 
     <div class="rows">
 
-      <div class="row">
+      <div class="row reveal">
         <span class="idx">01</span>
         <div>
           <h3>Автоматизировали, а время не освободилось</h3>
@@ -267,7 +362,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row reveal">
         <span class="idx">02</span>
         <div>
           <h3>Пилот показали, дальше не поехало</h3>
@@ -276,7 +371,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row reveal">
         <span class="idx">03</span>
         <div>
           <h3>Купили подписку — никто не пользуется</h3>
@@ -285,7 +380,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row reveal">
         <span class="idx">04</span>
         <div>
           <h3>Непонятно, во что это обойдётся</h3>
@@ -294,7 +389,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row reveal">
         <span class="idx">05</span>
         <div>
           <h3>Персональные данные нельзя отдавать наружу</h3>
@@ -303,7 +398,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row reveal">
         <span class="idx">06</span>
         <div>
           <h3>С чего вообще начинать</h3>
@@ -314,31 +409,31 @@
 
     </div>
 
-    <p class="sources">Данные: <a href="https://www.forbes.com/sites/jasonsnyder/2025/08/26/mit-finds-95-of-genai-pilots-fail-because-companies-avoid-friction/">MIT / Forbes</a> · <a href="https://vc.ru/aihub/2843158-luchshie-ii-resheniya-dlya-biznesa-v-2026-godu">обзоры рынка РФ</a>, 2025–2026</p>
+    <p class="sources reveal">Данные: <a href="https://www.forbes.com/sites/jasonsnyder/2025/08/26/mit-finds-95-of-genai-pilots-fail-because-companies-avoid-friction/">MIT / Forbes</a> · <a href="https://vc.ru/aihub/2843158-luchshie-ii-resheniya-dlya-biznesa-v-2026-godu">обзоры рынка РФ</a>, 2025–2026</p>
   </section>
 
   <section>
-    <div class="head">
+    <div class="head reveal">
       <h2>Чем могу быть полезен</h2>
       <span class="meta">03</span>
     </div>
     <ul>
-      <li>Разбор задачи до сметы — какую автоматизировать первой и что она вернёт</li>
-      <li>Запуск проекта с нуля: от концепции до работающего решения</li>
-      <li>Ведение под ключ — сроки, бюджет, подрядчики на мне</li>
-      <li>Подбор и координация исполнителей под конкретную задачу</li>
-      <li>Вывод застрявшего пилота в рабочий процесс</li>
+      <li class="reveal">Разбор задачи до сметы — какую автоматизировать первой и что она вернёт</li>
+      <li class="reveal">Запуск проекта с нуля: от концепции до работающего решения</li>
+      <li class="reveal">Ведение под ключ — сроки, бюджет, подрядчики на мне</li>
+      <li class="reveal">Подбор и координация исполнителей под конкретную задачу</li>
+      <li class="reveal">Вывод застрявшего пилота в рабочий процесс</li>
     </ul>
   </section>
 
   <section>
-    <div class="head">
+    <div class="head reveal">
       <h2>Контакты</h2>
       <span class="meta">04</span>
     </div>
-    <a class="phone" href="tel:+79634730159">+7 963 473-01-59</a>
-    <p class="note">Этот же номер — MAX и WhatsApp. Пишите или звоните, отвечаю лично.</p>
-    <p class="actions"><a class="btn" href="https://wa.me/79634730159">Написать в WhatsApp</a></p>
+    <a class="phone reveal" href="tel:+79634730159">+7 963 473-01-59</a>
+    <p class="note reveal">Этот же номер — MAX и WhatsApp. Пишите или звоните, отвечаю лично.</p>
+    <p class="actions reveal"><a class="btn" href="https://wa.me/79634730159"><span>Написать в WhatsApp</span></a></p>
   </section>
 
   <footer>
@@ -347,5 +442,67 @@
   </footer>
 
 </div>
+
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var name = document.querySelector('.name');
+  var items = document.querySelectorAll('.reveal');
+
+  if (reduced) {
+    name.classList.add('in');
+    items.forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+
+  // Шапка: ступенчатая сборка сразу после загрузки.
+  // Принудительный пересчёт стилей вместо requestAnimationFrame — rAF не
+  // выполняется в фоновых вкладках и встроенных панелях, и тогда шапка
+  // осталась бы невидимой навсегда.
+  var hero = document.querySelectorAll('header .reveal');
+  void document.body.offsetWidth;
+  name.classList.add('in');
+  hero.forEach(function(el){ el.classList.add('in'); });
+
+  // Остальное — по мере прокрутки, со ступенькой внутри группы.
+  // Развёртка по положению, а не по событию пересечения: при резком прыжке
+  // прокрутки (Ctrl+End, восстановление позиции, быстрый флик) элемент может
+  // проскочить мимо наблюдателя и остаться невидимым навсегда.
+  var pending = [];
+  document.querySelectorAll('section').forEach(function(sec){
+    sec.querySelectorAll('.reveal').forEach(function(el, i){
+      el.style.setProperty('--i', i);
+      pending.push(el);
+    });
+  });
+
+  function sweep(){
+    var edge = window.innerHeight * 0.88;
+    pending = pending.filter(function(el){
+      // top < edge покрывает и то, что уже ушло вверх за экран
+      if (el.getBoundingClientRect().top < edge) {
+        el.classList.add('in');
+        return false;
+      }
+      return true;
+    });
+    if (!pending.length) {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', sweep);
+    }
+  }
+
+  var ticking = false;
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    setTimeout(function(){ ticking = false; sweep(); }, 60);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', sweep);
+  sweep();
+})();
+</script>
 </body>
 </html>
