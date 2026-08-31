@@ -9,7 +9,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;400;600&display=swap" rel="stylesheet">
 
 <script>document.documentElement.className += " js";</script>
 
@@ -25,7 +25,9 @@
     --hair:rgba(255,255,255,.22);
 
     --maxw:1280px;
-    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    /* Onest — спроектирован от кириллицы, а не с прикрученной к латинице.
+       На 113px это и решает: русские буквы не выглядят вторичными. */
+    --sans:"Onest","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 
     /* Motion: в карточке референса токенов нет — кривые взяты из index.html */
     --enter:cubic-bezier(.32,.72,0,1);
