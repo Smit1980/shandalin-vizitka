@@ -3,24 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#101214">
+<meta name="theme-color" content="#0d0d0f">
 <title>Денис Шандалин — Агентство Новых Перспектив</title>
-<meta name="description" content="Денис Шандалин, Агентство Новых Перспектив. Создание проектов под ключ: от идеи и сметы до запуска. Телефон +7 963 473-01-59.">
+<meta name="description" content="Денис Шандалин, Агентство Новых Перспектив. Автоматизация и внедрение ИИ в бизнес под ключ: от задачи и сметы до работающего процесса. Телефон +7 963 473-01-59.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
   :root{
-    --bg:#101214;
-    --text:#e8e6e3;
-    --muted:#8f938f;
-    --line:rgba(232,230,227,.12);
-    --accent:#c8a97e;
-    --maxw:680px;
-    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    --display:"Inter Tight","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    --bg:#0d0d0f;
+    --text:#f2f1ef;
+    --muted:#8b8b88;
+    --dim:#66665f;
+    --line:rgba(242,241,239,.13);
+    --line-soft:rgba(242,241,239,.07);
+    --ember:#ff6436;
+    --maxw:760px;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    --display:"Inter Tight","Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -30,123 +33,201 @@
     color:var(--text);
     font-family:var(--sans);
     font-size:17px;
-    line-height:1.65;
-    font-feature-settings:"cv11" 1,"ss01" 1;
+    line-height:1.6;
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
   }
   .wrap{
     max-width:var(--maxw);
     margin:0 auto;
-    padding:clamp(3rem,12vw,6.5rem) clamp(1.25rem,6vw,2rem) clamp(3rem,10vw,5rem);
+    padding:clamp(2.5rem,9vw,4.5rem) clamp(1.25rem,5vw,2rem) clamp(3rem,8vw,5rem);
+  }
+
+  /* Моно-подписи: технические метаданные */
+  .meta{
+    font-family:var(--mono);
+    font-size:.72rem;
+    font-weight:400;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--muted);
   }
 
   /* Шапка */
+  .kicker{
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+    margin:0 0 1.6rem;
+  }
+  .kicker::before{
+    content:"";
+    width:6px;height:6px;
+    background:var(--ember);
+    flex:none;
+  }
   .name{
     margin:0;
     font-family:var(--display);
-    font-size:clamp(2.45rem,11.5vw,4.5rem);
-    line-height:1;
-    font-weight:600;
-    letter-spacing:-.035em;
+    font-size:clamp(2.6rem,12.5vw,5rem);
+    line-height:.95;
+    font-weight:700;
+    letter-spacing:-.04em;
   }
   .agency{
     margin:1.5rem 0 0;
-    font-family:var(--display);
-    font-size:clamp(1.02rem,4vw,1.2rem);
+    font-size:clamp(1.02rem,4vw,1.15rem);
     font-weight:500;
-    letter-spacing:-.005em;
     color:var(--text);
   }
-  .tagline{
-    margin:.25rem 0 0;
+  .lede{
+    margin:.6rem 0 0;
+    max-width:34em;
     color:var(--muted);
-    letter-spacing:.005em;
   }
 
   /* Секции */
   section{
-    margin-top:clamp(2.75rem,9vw,4rem);
-    padding-top:clamp(2.25rem,7vw,3rem);
+    margin-top:clamp(3rem,9vw,4.5rem);
+    padding-top:clamp(1.6rem,4vw,2rem);
     border-top:1px solid var(--line);
   }
-  h2{
-    margin:0 0 1.15rem;
-    font-size:.74rem;
-    font-weight:500;
-    text-transform:uppercase;
-    letter-spacing:.18em;
-    color:var(--muted);
+  .head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:1rem;
+    margin-bottom:1.8rem;
   }
+  h2{
+    margin:0;
+    font-family:var(--mono);
+    font-size:.72rem;
+    font-weight:500;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--text);
+  }
+  .head .meta{color:var(--dim);white-space:nowrap}
   p{margin:0 0 1rem}
   p:last-child{margin-bottom:0}
+
+  /* Боли: нумерованные строки */
+  .rows{border-top:1px solid var(--line-soft)}
+  .row{
+    display:grid;
+    grid-template-columns:2.75rem 1fr;
+    gap:0 1rem;
+    padding:1.4rem 0;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .idx{
+    font-family:var(--mono);
+    font-size:.78rem;
+    line-height:1.85;
+    color:var(--ember);
+  }
+  .row h3{
+    margin:0 0 .4rem;
+    font-family:var(--display);
+    font-size:1.14rem;
+    font-weight:600;
+    letter-spacing:-.015em;
+    line-height:1.35;
+  }
+  .row p{
+    margin:0;
+    font-size:.97rem;
+    color:var(--muted);
+  }
+  .fact{
+    display:block;
+    margin-top:.55rem;
+    font-family:var(--mono);
+    font-size:.76rem;
+    letter-spacing:.02em;
+    line-height:1.6;
+    color:var(--dim);
+  }
+  .sources{
+    margin-top:1.5rem;
+    font-family:var(--mono);
+    font-size:.7rem;
+    letter-spacing:.04em;
+    color:var(--dim);
+  }
+  .sources a{color:var(--dim);text-decoration:none;border-bottom:1px solid var(--line)}
+  .sources a:hover{color:var(--muted)}
 
   /* Список услуг */
   ul{margin:0;padding:0;list-style:none}
   li{
     position:relative;
-    padding-left:1.35rem;
-    margin-bottom:.8rem;
+    padding-left:1.5rem;
+    margin-bottom:.85rem;
   }
   li:last-child{margin-bottom:0}
   li::before{
     content:"";
     position:absolute;
-    left:0;
-    top:.72em;
-    width:6px;
-    height:1px;
-    background:var(--accent);
+    left:0;top:.62em;
+    width:5px;height:5px;
+    background:var(--ember);
   }
 
   /* Контакты */
   .phone{
     display:inline-block;
     min-height:44px;
-    padding:.2rem 0;
+    padding:.1rem 0;
     font-family:var(--display);
-    font-size:clamp(1.55rem,7vw,2.15rem);
-    font-weight:600;
-    letter-spacing:-.02em;
+    font-size:clamp(1.6rem,7.5vw,2.35rem);
+    font-weight:700;
+    letter-spacing:-.03em;
     font-variant-numeric:tabular-nums;
     color:var(--text);
     text-decoration:none;
     border-bottom:1px solid var(--line);
     transition:border-color .18s ease,color .18s ease;
   }
-  .phone:hover{color:var(--accent);border-color:var(--accent)}
-  .note{
-    margin:.85rem 0 0;
-    color:var(--muted);
-    font-size:.94rem;
-  }
-  .actions{margin-top:1.6rem}
+  .phone:hover{color:var(--ember);border-color:var(--ember)}
+  .note{margin:.9rem 0 0;color:var(--muted);font-size:.95rem}
+  .actions{margin-top:1.7rem}
   .btn{
     display:inline-flex;
     align-items:center;
     min-height:46px;
-    padding:.6rem 1.4rem;
+    padding:.6rem 1.5rem;
     border:1px solid var(--line);
-    border-radius:2px;
-    font-weight:500;
+    border-radius:0;
+    font-family:var(--mono);
+    font-size:.78rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
     color:var(--text);
     text-decoration:none;
-    font-size:.97rem;
     transition:border-color .18s ease,color .18s ease;
   }
-  .btn:hover{color:var(--accent);border-color:var(--accent)}
+  .btn:hover{color:var(--ember);border-color:var(--ember)}
 
   footer{
-    margin-top:clamp(3rem,9vw,4.5rem);
-    padding-top:1.5rem;
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+    flex-wrap:wrap;
+    margin-top:clamp(3rem,8vw,4.5rem);
+    padding-top:1.4rem;
     border-top:1px solid var(--line);
-    color:var(--muted);
-    font-size:.86rem;
   }
+  footer .meta{color:var(--dim)}
 
-  a:focus-visible,.phone:focus-visible{
-    outline:2px solid var(--accent);
-    outline-offset:4px;
+  a:focus-visible,.phone:focus-visible{outline:2px solid var(--ember);outline-offset:4px}
+
+  @media (max-width:520px){
+    .row{grid-template-columns:1fr;gap:.5rem 0}
+    .idx{line-height:1.2}
+    .head{gap:.75rem}
+    .head .meta{white-space:normal;text-align:right}
   }
 </style>
 </head>
@@ -154,37 +235,115 @@
 <div class="wrap">
 
   <header>
+    <p class="kicker meta">Создание проектов под ключ</p>
     <h1 class="name">Денис Шандалин</h1>
     <p class="agency">Агентство Новых Перспектив</p>
-    <p class="tagline">Создание проектов под ключ</p>
+    <p class="lede">Веду проекты автоматизации и внедрения ИИ в бизнес целиком — от задачи и сметы до процесса, который работает без меня.</p>
   </header>
 
   <section>
-    <h2>Обо мне</h2>
+    <div class="head">
+      <h2>Обо мне</h2>
+      <span class="meta">01</span>
+    </div>
     <p>Я руковожу Агентством Новых Перспектив. Мы берём проект целиком: от первой идеи и сметы до запуска и передачи заказчику в рабочем состоянии.</p>
     <p>Работаю без посредников между вами и результатом. Если задача выходит за рамки моей компетенции, говорю об этом сразу и подключаю тех, кто её закроет.</p>
   </section>
 
   <section>
-    <h2>Чем могу быть полезен</h2>
+    <div class="head">
+      <h2>С чем приходят</h2>
+      <span class="meta">02 / Рынок 2026</span>
+    </div>
+
+    <div class="rows">
+
+      <div class="row">
+        <span class="idx">01</span>
+        <div>
+          <h3>Автоматизировали, а время не освободилось</h3>
+          <p>Быстрее всего окупается скучное: почта, встречи, отчёты, обработка документов. Витринные проекты запускают первыми, а высвобождают время именно эти — и до них обычно не доходит.</p>
+          <span class="fact">8–15 часов в неделю — типичная экономия на рутине</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="idx">02</span>
+        <div>
+          <h3>Пилот показали, дальше не поехало</h3>
+          <p>Ломается не технология, а переход от демонстрации к ежедневной работе: размытый критерий успеха, неготовые данные, процесс под решение не переделан.</p>
+          <span class="fact">95% корпоративных пилотов ИИ не дали измеримого ROI — MIT</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="idx">03</span>
+        <div>
+          <h3>Купили подписку — никто не пользуется</h3>
+          <p>Инструмент, не встроенный в процесс, не приживается. Решает не обучение сотрудников, а переработка самого маршрута задачи.</p>
+          <span class="fact">42% компаний свернули большинство ИИ-инициатив в 2025 году — против 17% годом ранее</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="idx">04</span>
+        <div>
+          <h3>Непонятно, во что это обойдётся</h3>
+          <p>Разброс цен объясняется не аппетитом подрядчика, а выбранной задачей. Верно выбранная первая задача сокращает бюджет в разы.</p>
+          <span class="fact">Готовые решения — 10–30 тыс ₽/мес · первое кастомное внедрение — 300–800 тыс ₽</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="idx">05</span>
+        <div>
+          <h3>Персональные данные нельзя отдавать наружу</h3>
+          <p>Там, где действует 152-ФЗ, вопрос закрывается локализацией контура и отечественными моделями, а не отказом от автоматизации.</p>
+          <span class="fact">GigaChat, YandexGPT — обработка внутри РФ</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="idx">06</span>
+        <div>
+          <h3>С чего вообще начинать</h3>
+          <p>Есть короткий список задач, которые окупаются первыми почти в любой отрасли. Заходить стоит с них, а не с самой заметной проблемы.</p>
+          <span class="fact">Клиентский сервис · обработка документов · квалификация лидов · внутренняя база знаний</span>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="sources">Данные: <a href="https://www.forbes.com/sites/jasonsnyder/2025/08/26/mit-finds-95-of-genai-pilots-fail-because-companies-avoid-friction/">MIT / Forbes</a> · <a href="https://vc.ru/aihub/2843158-luchshie-ii-resheniya-dlya-biznesa-v-2026-godu">обзоры рынка РФ</a>, 2025–2026</p>
+  </section>
+
+  <section>
+    <div class="head">
+      <h2>Чем могу быть полезен</h2>
+      <span class="meta">03</span>
+    </div>
     <ul>
-      <li>Запуск проекта с нуля — от концепции до готового решения</li>
-      <li>Ведение проекта под ключ: сроки, бюджет, подрядчики на мне</li>
+      <li>Разбор задачи до сметы — какую автоматизировать первой и что она вернёт</li>
+      <li>Запуск проекта с нуля: от концепции до работающего решения</li>
+      <li>Ведение под ключ — сроки, бюджет, подрядчики на мне</li>
       <li>Подбор и координация исполнителей под конкретную задачу</li>
-      <li>Разбор проекта, который застрял, и вывод его к результату</li>
-      <li>Консультация по замыслу до того, как вложены деньги</li>
+      <li>Вывод застрявшего пилота в рабочий процесс</li>
     </ul>
   </section>
 
   <section>
-    <h2>Контакты</h2>
+    <div class="head">
+      <h2>Контакты</h2>
+      <span class="meta">04</span>
+    </div>
     <a class="phone" href="tel:+79634730159">+7 963 473-01-59</a>
     <p class="note">Этот же номер — MAX и WhatsApp. Пишите или звоните, отвечаю лично.</p>
     <p class="actions"><a class="btn" href="https://wa.me/79634730159">Написать в WhatsApp</a></p>
   </section>
 
   <footer>
-    Денис Шандалин · Агентство Новых Перспектив
+    <span class="meta">Денис Шандалин</span>
+    <span class="meta">Агентство Новых Перспектив</span>
   </footer>
 
 </div>
