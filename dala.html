@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#000000">
+<title>Денис Шандалин — Агентство Новых Перспектив</title>
+<meta name="description" content="Денис Шандалин, Агентство Новых Перспектив. Автоматизация и внедрение ИИ в бизнес под ключ: от задачи и сметы до работающего процесса. Телефон +7 963 473-01-59.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700&display=swap" rel="stylesheet">
+
+<script>document.documentElement.className += " js";</script>
+
+<style>
+  :root{
+    /* Палитра Dala — перенесена дословно из дизайн-системы референса */
+    --void:#000000;      /* холст страницы, все секции */
+    --bone:#ffffff;      /* заголовки, основной текст */
+    --ash:#9a9a9a;       /* вторичный текст, подписи */
+    --silver:#bdbdbd;    /* тело текста, поддерживающий контекст */
+    --iris:#8052ff;      /* заливка главной кнопки, нумерация, акцент */
+    --saffron:#ffb829;   /* метки-надзаголовки, акцентные ссылки */
+    --hair:rgba(255,255,255,.22);
+
+    --maxw:1280px;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+
+    /* Motion: в карточке референса токенов нет — кривые взяты из index.html */
+    --enter:cubic-bezier(.32,.72,0,1);
+    --exit:cubic-bezier(.19,1,.22,1);
+    --t-micro:.3s;
+    --t-comp:.5s;
+    --t-page:.72s;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+
+  /* Тело: 18px весом 200 — «воздушная» читаемость, ключевое правило системы */
+  body{
+    margin:0;
+    background:var(--void);
+    color:var(--silver);
+    font-family:var(--sans);
+    font-size:18px;
+    font-weight:200;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 clamp(24px,5vw,60px);
+  }
+
+  /* ---------- Типошкала: иерархия масштабом, не насыщенностью ---------- */
+  /* Заголовки — всегда вес 400, трекинг −0.04em от 42px и выше */
+  .display,.h-lg,.h,.h-sm,.h-xs,.h-2xs{
+    font-weight:400;
+    color:var(--bone);
+    margin:0;
+  }
+  .display{font-size:clamp(44px,8.4vw,113px);line-height:1.1;letter-spacing:-.04em}
+  .h-lg{font-size:clamp(34px,5.4vw,78px);line-height:1.1;letter-spacing:-.04em}
+  .h{font-size:clamp(32px,4.6vw,48px);line-height:1.1;letter-spacing:-.035em}
+  .h-sm{font-size:clamp(30px,4vw,42px);line-height:1.2;letter-spacing:-.04em}
+  .h-xs{font-size:clamp(23px,2.4vw,27px);line-height:1.1}
+  .h-2xs{font-size:clamp(21px,2vw,24px);line-height:1.25;letter-spacing:-.02em}
+
+  .label{
+    margin:0;
+    font-size:14px;
+    font-weight:600;
+    line-height:1.2;
+    letter-spacing:.025em;
+    text-transform:uppercase;
+    color:var(--saffron);
+  }
+  .label-iris{color:var(--iris)}
+  .caption{
+    font-size:12px;
+    font-weight:400;
+    line-height:1.5;
+    color:var(--ash);
+  }
+  p{margin:0 0 18px}
+  p:last-child{margin-bottom:0}
+
+  /* ---------- Навигация: прозрачная поверх чёрного ---------- */
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    padding:30px 0 0;
+  }
+  .logo{
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:.025em;
+    text-transform:uppercase;
+    color:var(--bone);
+  }
+
+  /* ---------- Кнопки ---------- */
+  /* Залитая — строго одна в поле зрения, остальные каналы контурными пилюлями */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:44px;
+    padding:12px 24px;
+    border:1px solid transparent;
+    border-radius:9999px;
+    font-size:14px;
+    font-weight:600;
+    line-height:1.2;
+    letter-spacing:.025em;
+    text-transform:uppercase;
+    text-decoration:none;
+    white-space:nowrap;
+    transition:background-color var(--t-micro) var(--enter),
+               border-color var(--t-micro) var(--enter),
+               color var(--t-micro) var(--enter),
+               transform var(--t-micro) var(--enter);
+  }
+  .btn-fill{background:var(--iris);color:var(--bone)}
+  .btn-fill:hover{background:#9268ff;transform:translateY(-2px)}
+  .btn-ghost{border-color:var(--hair);color:var(--bone)}
+  .btn-ghost:hover{border-color:var(--bone);background:rgba(255,255,255,.06);transform:translateY(-2px)}
+
+  /* ---------- Hero: двухколоночный сплит, портрет справа ---------- */
+  .hero{
+    display:grid;
+    grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+    align-items:center;
+    gap:clamp(36px,5vw,96px);
+    padding:clamp(60px,9vw,120px) 0 clamp(60px,8vw,96px);
+  }
+  .hero-lede{
+    max-width:520px;
+    margin:30px 0 0;
+    font-size:18px;
+    color:var(--silver);
+  }
+  .hero .display{margin-top:24px}
+  .hero-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:36px;
+  }
+
+  /* Портрет: скругление 24px, без рамки. Нижний край уводится в холст —
+     у снимка чёрный фон, поэтому он «плавает» на странице без границы. */
+  .portrait{
+    position:relative;
+    width:100%;
+    aspect-ratio:4/5;
+    border-radius:24px;
+    overflow:hidden;
+  }
+  .portrait img{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:52% 42%;
+    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 68%,transparent 100%);
+    mask-image:linear-gradient(to bottom,#000 0%,#000 68%,transparent 100%);
+  }
+
+  /* ---------- Секции: чёрные во всю ширину, без карточек и теней ---------- */
+  section{padding:clamp(60px,9vw,120px) 0}
+  .split{
+    display:grid;
+    grid-template-columns:minmax(0,5fr) minmax(0,7fr);
+    gap:clamp(30px,5vw,96px);
+  }
+  .split-head .label{margin-bottom:18px}
+  .stack>*+*{margin-top:18px}
+
+  /* Кейсы и боли: сетка без контейнеров, иерархия масштабом и воздухом */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:clamp(36px,4vw,60px) clamp(30px,4vw,60px);
+    margin-top:clamp(36px,5vw,60px);
+  }
+  .item .label-iris{margin-bottom:12px}
+  .item h3{margin:0 0 12px}
+  /* :not(.label) обязателен — иначе это правило перебивает по специфичности
+     цвет и кегль нумерации, и «01» превращается в обычный абзац */
+  .item p:not(.label){margin:0;font-size:18px;color:var(--silver)}
+  .item .caption{display:block;margin-top:18px}
+
+  /* Список услуг */
+  .list{margin:0;padding:0;list-style:none}
+  .list li{
+    position:relative;
+    padding:18px 0 18px 30px;
+    font-size:18px;
+    color:var(--silver);
+  }
+  .list li+li{border-top:1px solid rgba(255,255,255,.08)}
+  .list li::before{
+    content:"";
+    position:absolute;
+    left:0;top:calc(18px + .65em);
+    width:6px;height:6px;
+    border-radius:9999px;
+    background:var(--iris);
+    transition:transform var(--t-micro) var(--enter);
+  }
+  @media (hover:hover){
+    .list li:hover::before{transform:scale(1.6)}
+  }
+
+  .sources{margin-top:30px;font-size:14px;color:var(--ash)}
+  .sources a{color:var(--saffron);text-decoration:none;border-bottom:1px solid rgba(255,184,41,.35);transition:border-color var(--t-micro) var(--enter)}
+  .sources a:hover{border-bottom-color:var(--saffron)}
+
+  /* ---------- Контакты ---------- */
+  .phone{
+    display:inline-block;
+    font-size:clamp(32px,4.6vw,48px);
+    font-weight:400;
+    line-height:1.1;
+    letter-spacing:-.035em;
+    font-variant-numeric:tabular-nums;
+    color:var(--bone);
+    text-decoration:none;
+    transition:color var(--t-micro) var(--enter);
+  }
+  .phone:hover{color:var(--iris)}
+  .contact-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:36px;
+  }
+
+  footer{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    padding:36px 0 60px;
+    border-top:1px solid rgba(255,255,255,.08);
+  }
+
+  a:focus-visible,.phone:focus-visible,.btn:focus-visible{outline:2px solid var(--iris);outline-offset:4px}
+
+  /* ---------- Появление ---------- */
+  .js .reveal{opacity:0;transform:translateY(18px)}
+  .js .reveal.in{
+    opacity:1;
+    transform:none;
+    transition:opacity var(--t-page) var(--enter),transform var(--t-page) var(--enter);
+    transition-delay:calc(var(--i,0) * 70ms);
+  }
+  .js .portrait{opacity:0;transform:scale(.98)}
+  .js .portrait.in{
+    opacity:1;
+    transform:none;
+    transition:opacity var(--t-page) var(--enter) .15s,transform var(--t-page) var(--enter) .15s;
+  }
+
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr;gap:48px}
+    .portrait{aspect-ratio:5/4;max-width:520px}
+    .split{grid-template-columns:1fr;gap:30px}
+    .grid{grid-template-columns:1fr}
+  }
+  @media (max-width:520px){
+    .nav{padding-top:24px}
+    .btn{padding:12px 18px}
+    .portrait{aspect-ratio:1/1}
+  }
+
+  /* Уважение к системной настройке «меньше движения» */
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .js .reveal,.js .portrait{opacity:1;transform:none}
+    .btn:hover,.list li:hover::before{transform:none}
+    *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="nav reveal">
+    <span class="logo">Денис Шандалин</span>
+    <a class="btn btn-ghost" href="#contacts">Связаться</a>
+  </header>
+
+  <div class="hero">
+    <div>
+      <p class="label reveal" style="--i:0">Агентство Новых Перспектив</p>
+      <h1 class="display reveal" style="--i:1">Денис Шандалин</h1>
+      <p class="hero-lede reveal" style="--i:2">Веду проекты автоматизации и внедрения ИИ в бизнес целиком — от задачи и сметы до процесса, который работает без меня.</p>
+      <p class="hero-actions reveal" style="--i:3">
+        <a class="btn btn-fill" href="tel:+79634730159">Позвонить</a>
+        <a class="btn btn-ghost" href="#cases">Смотреть кейсы</a>
+      </p>
+    </div>
+    <figure class="portrait" style="margin:0">
+      <img src="photo.jpg" width="1280" height="1024" alt="Денис Шандалин — портрет" fetchpriority="high">
+    </figure>
+  </div>
+
+  <section id="about">
+    <div class="split">
+      <div class="split-head">
+        <p class="label reveal">01 — Обо мне</p>
+        <h2 class="h-lg reveal">Веду проект целиком</h2>
+      </div>
+      <div class="stack">
+        <p class="reveal">Я руковожу Агентством Новых Перспектив. Мы берём проект целиком: от первой идеи и сметы до запуска и передачи заказчику в рабочем состоянии.</p>
+        <p class="reveal">Работаю без посредников между вами и результатом. Если задача выходит за рамки моей компетенции, говорю об этом сразу и подключаю тех, кто её закроет.</p>
+        <p class="reveal">Больше 25 лет в управлении активами и бизнес-процессами. Соучредитель Клуба «ИИ в образованИИ» — там мы с коллегами обучили практическому применению ИИ больше 300 предпринимателей, руководителей и экспертов.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="cases">
+    <div class="split">
+      <div class="split-head">
+        <p class="label reveal">02 — Кейсы</p>
+        <h2 class="h-lg reveal">Где это уже работает</h2>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="item reveal">
+        <p class="label label-iris">01</p>
+        <h3 class="h-xs">Клуб «ИИ в образованИИ»</h3>
+        <p>Соучредитель сообщества, которое учит внедрять ИИ в образование и бизнес. Работаем с вузами и образовательными организациями федерального уровня, выступали в Минобрнауки, Российской академии образования и на конференции Национального центра «Россия».</p>
+        <span class="caption">300+ обученных специалистов, предпринимателей и экспертов</span>
+      </div>
+
+      <div class="item reveal">
+        <p class="label label-iris">02</p>
+        <h3 class="h-xs">Корпорация «Алмаз-Антей»</h3>
+        <p>Участие в проектах на стыке государственных структур и промышленности — наряду с работой с Минобрнауки.</p>
+        <span class="caption">Промышленность · госструктуры</span>
+      </div>
+    </div>
+
+    <p class="sources reveal">Клуб: <a href="https://iivobrazovanii.club/">iivobrazovanii.club</a></p>
+  </section>
+
+  <section id="pains">
+    <div class="split">
+      <div class="split-head">
+        <p class="label reveal">03 — С чем приходят</p>
+        <h2 class="h-lg reveal">Шесть частых тупиков</h2>
+      </div>
+      <div class="stack">
+        <p class="reveal">Почти каждый разговор начинается с одной из этих ситуаций. Ломается, как правило, не технология, а переход от демонстрации к ежедневной работе.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="item reveal">
+        <p class="label label-iris">01</p>
+        <h3 class="h-2xs">Автоматизировали, а время не освободилось</h3>
+        <p>Быстрее всего окупается скучное: почта, встречи, отчёты, обработка документов. Витринные проекты запускают первыми, а высвобождают время именно эти — и до них обычно не доходит.</p>
+        <span class="caption">8–15 часов в неделю — типичная экономия на рутине</span>
+      </div>
+
+      <div class="item reveal">
+        <p class="label label-iris">02</p>
+        <h3 class="h-2xs">Пилот показали, дальше не поехало</h3>
+        <p>Ломается не технология, а переход от демонстрации к ежедневной работе: размытый критерий успеха, неготовые данные, процесс под решение не переделан.</p>
+        <span class="caption">95% корпоративных пилотов ИИ не дали измеримого ROI — MIT</span>
+      </div>
+
+      <div class="item reveal">
+        <p class="label label-iris">03</p>
+        <h3 class="h-2xs">Купили подписку — никто не пользуется</h3>
+        <p>Инструмент, не встроенный в процесс, не приживается. Решает не обучение сотрудников, а переработка самого маршрута задачи.</p>
+        <span class="caption">42% компаний свернули большинство ИИ-инициатив в 2025 году — против 17% годом ранее</span>
+      </div>
+
+      <div class="item reveal">
+        <p class="label label-iris">04</p>
+        <h3 class="h-2xs">Непонятно, во что это обойдётся</h3>
+        <p>Разброс цен объясняется не аппетитом подрядчика, а выбранной задачей. Верно выбранная первая задача сокращает бюджет в разы.</p>
+        <span class="caption">Готовые решения — 10–30 тыс ₽/мес · первое кастомное внедрение — 300–800 тыс ₽</span>
+      </div>
+
+      <div class="item reveal">
+        <p class="label label-iris">05</p>
+        <h3 class="h-2xs">Персональные данные нельзя отдавать наружу</h3>
+        <p>Там, где действует 152-ФЗ, вопрос закрывается локализацией контура и отечественными моделями, а не отказом от автоматизации.</p>
+        <span class="caption">GigaChat, YandexGPT — обработка внутри РФ</span>
+      </div>
+
+      <div class="item reveal">
+        <p class="label label-iris">06</p>
+        <h3 class="h-2xs">С чего вообще начинать</h3>
+        <p>Есть короткий список задач, которые окупаются первыми почти в любой отрасли. Заходить стоит с них, а не с самой заметной проблемы.</p>
+        <span class="caption">Клиентский сервис · обработка документов · квалификация лидов · внутренняя база знаний</span>
+      </div>
+    </div>
+
+    <p class="sources reveal">Данные: <a href="https://www.forbes.com/sites/jasonsnyder/2025/08/26/mit-finds-95-of-genai-pilots-fail-because-companies-avoid-friction/">MIT / Forbes</a> · <a href="https://vc.ru/aihub/2843158-luchshie-ii-resheniya-dlya-biznesa-v-2026-godu">обзоры рынка РФ</a>, 2025–2026</p>
+  </section>
+
+  <section id="services">
+    <div class="split">
+      <div class="split-head">
+        <p class="label reveal">04 — Чем могу быть полезен</p>
+        <h2 class="h-lg reveal">Пять форматов работы</h2>
+      </div>
+      <ul class="list">
+        <li class="reveal">Разбор задачи до сметы — какую автоматизировать первой и что она вернёт</li>
+        <li class="reveal">Запуск проекта с нуля: от концепции до работающего решения</li>
+        <li class="reveal">Ведение под ключ — сроки, бюджет, подрядчики на мне</li>
+        <li class="reveal">Подбор и координация исполнителей под конкретную задачу</li>
+        <li class="reveal">Вывод застрявшего пилота в рабочий процесс</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contacts">
+    <div class="split">
+      <div class="split-head">
+        <p class="label reveal">05 — Контакты</p>
+        <h2 class="h-lg reveal">Пишите или звоните</h2>
+      </div>
+      <div>
+        <a class="phone reveal" href="tel:+79634730159">+7 963 473-01-59</a>
+        <p class="reveal" style="margin-top:18px">Этот же номер — MAX и WhatsApp. В Telegram — @SmitAnin. Отвечаю лично.</p>
+        <p class="contact-actions reveal">
+          <a class="btn btn-fill" href="https://wa.me/79634730159">WhatsApp</a>
+          <a class="btn btn-ghost" href="https://max.ru/u/f9LHodD0cOKMLjpP93TXn8BDP9J3eHp-b2-AoQfOYsbcB9do3dQOMUajbhM">MAX</a>
+          <a class="btn btn-ghost" href="https://t.me/SmitAnin">Telegram</a>
+          <a class="btn btn-ghost" href="https://t.me/NeuroFutures">Канал</a>
+          <a class="btn btn-ghost" href="https://t.me/Denis_bcard_bot">Бот с кейсами</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="caption">Денис Шандалин</span>
+    <span class="caption">Агентство Новых Перспектив</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var portrait = document.querySelector('.portrait');
+  var items = document.querySelectorAll('.reveal');
+
+  if (reduced) {
+    portrait.classList.add('in');
+    items.forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+
+  // Шапка и hero: ступенчатая сборка сразу после загрузки.
+  // Принудительный пересчёт стилей вместо requestAnimationFrame — rAF не
+  // выполняется в фоновых вкладках и встроенных панелях, и тогда первый
+  // экран остался бы невидимым навсегда.
+  var first = document.querySelectorAll('.nav.reveal, .hero .reveal');
+  void document.body.offsetWidth;
+  first.forEach(function(el){ el.classList.add('in'); });
+  portrait.classList.add('in');
+
+  // Остальное — по мере прокрутки, со ступенькой внутри группы.
+  // Развёртка по положению, а не по событию пересечения: при резком прыжке
+  // прокрутки (Ctrl+End, восстановление позиции, быстрый флик) элемент может
+  // проскочить мимо наблюдателя и остаться невидимым навсегда.
+  var pending = [];
+  document.querySelectorAll('section').forEach(function(sec){
+    sec.querySelectorAll('.reveal').forEach(function(el, i){
+      el.style.setProperty('--i', i);
+      pending.push(el);
+    });
+  });
+
+  var io = null;
+  var timer = null;
+
+  function sweep(){
+    var edge = window.innerHeight * 0.88;
+    pending = pending.filter(function(el){
+      // top < edge покрывает и то, что уже ушло вверх за экран
+      if (el.getBoundingClientRect().top < edge) {
+        el.classList.add('in');
+        return false;
+      }
+      return true;
+    });
+    if (!pending.length) {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', sweep);
+      if (io) io.disconnect();
+      clearInterval(timer);
+    }
+  }
+
+  var ticking = false;
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    setTimeout(function(){ ticking = false; sweep(); }, 60);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', sweep);
+
+  // Три источника сигнала, потому что поодиночке каждый дырявый — все три
+  // дыры проверены на этой самой странице, а не взяты из общих соображений:
+  //
+  // scroll — в части webview и встроенных панелей просмотра события не
+  //   приходят вовсе (в панели предпросмотра свежий слушатель поймал ноль
+  //   событий при прокрутке на всю высоту страницы);
+  // IntersectionObserver — во-первых, при резком прыжке (Ctrl+End, быстрый
+  //   флик, восстановление позиции) сообщает только о том, что оказалось в
+  //   кадре на месте приземления: пролетевшее мимо не отмечается никогда,
+  //   поэтому наблюдаем секции (они замощают страницу без разрывов) и на
+  //   каждом их событии гоняем позиционную развёртку, которая догоняет и
+  //   всё ушедшее вверх. Во-вторых, доставка его колбэков привязана к циклу
+  //   отрисовки — там же, где не работает requestAnimationFrame, молчит и он;
+  // таймер — единственное, что тикает при заторможенной отрисовке.
+  //
+  // Цена страховки почти нулевая: тик сравнивает одно число и выходит, если
+  // прокрутка не двигалась, а когда проявлять больше нечего — все три
+  // источника отключаются сами.
+  if ('IntersectionObserver' in window) {
+    io = new IntersectionObserver(sweep);
+    document.querySelectorAll('section').forEach(function(sec){ io.observe(sec); });
+  }
+
+  var lastY = -1, lastH = -1;
+  timer = setInterval(function(){
+    if (window.scrollY === lastY && window.innerHeight === lastH) return;
+    lastY = window.scrollY;
+    lastH = window.innerHeight;
+    sweep();
+  }, 250);
+
+  sweep();
+})();
+</script>
+</body>
+</html>
