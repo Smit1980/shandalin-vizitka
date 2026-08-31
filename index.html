@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101214">
+<title>Денис Шандалин — Агентство Новых Перспектив</title>
+<meta name="description" content="Денис Шандалин, Агентство Новых Перспектив. Создание проектов под ключ: от идеи и сметы до запуска. Телефон +7 963 473-01-59.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#101214;
+    --text:#e8e6e3;
+    --muted:#8f938f;
+    --line:rgba(232,230,227,.12);
+    --accent:#c8a97e;
+    --maxw:680px;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --display:"Inter Tight","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:17px;
+    line-height:1.65;
+    font-feature-settings:"cv11" 1,"ss01" 1;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:clamp(3rem,12vw,6.5rem) clamp(1.25rem,6vw,2rem) clamp(3rem,10vw,5rem);
+  }
+
+  /* Шапка */
+  .name{
+    margin:0;
+    font-family:var(--display);
+    font-size:clamp(2.45rem,11.5vw,4.5rem);
+    line-height:1;
+    font-weight:600;
+    letter-spacing:-.035em;
+  }
+  .agency{
+    margin:1.5rem 0 0;
+    font-family:var(--display);
+    font-size:clamp(1.02rem,4vw,1.2rem);
+    font-weight:500;
+    letter-spacing:-.005em;
+    color:var(--text);
+  }
+  .tagline{
+    margin:.25rem 0 0;
+    color:var(--muted);
+    letter-spacing:.005em;
+  }
+
+  /* Секции */
+  section{
+    margin-top:clamp(2.75rem,9vw,4rem);
+    padding-top:clamp(2.25rem,7vw,3rem);
+    border-top:1px solid var(--line);
+  }
+  h2{
+    margin:0 0 1.15rem;
+    font-size:.74rem;
+    font-weight:500;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    color:var(--muted);
+  }
+  p{margin:0 0 1rem}
+  p:last-child{margin-bottom:0}
+
+  /* Список услуг */
+  ul{margin:0;padding:0;list-style:none}
+  li{
+    position:relative;
+    padding-left:1.35rem;
+    margin-bottom:.8rem;
+  }
+  li:last-child{margin-bottom:0}
+  li::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:.72em;
+    width:6px;
+    height:1px;
+    background:var(--accent);
+  }
+
+  /* Контакты */
+  .phone{
+    display:inline-block;
+    min-height:44px;
+    padding:.2rem 0;
+    font-family:var(--display);
+    font-size:clamp(1.55rem,7vw,2.15rem);
+    font-weight:600;
+    letter-spacing:-.02em;
+    font-variant-numeric:tabular-nums;
+    color:var(--text);
+    text-decoration:none;
+    border-bottom:1px solid var(--line);
+    transition:border-color .18s ease,color .18s ease;
+  }
+  .phone:hover{color:var(--accent);border-color:var(--accent)}
+  .note{
+    margin:.85rem 0 0;
+    color:var(--muted);
+    font-size:.94rem;
+  }
+  .actions{margin-top:1.6rem}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    min-height:46px;
+    padding:.6rem 1.4rem;
+    border:1px solid var(--line);
+    border-radius:2px;
+    font-weight:500;
+    color:var(--text);
+    text-decoration:none;
+    font-size:.97rem;
+    transition:border-color .18s ease,color .18s ease;
+  }
+  .btn:hover{color:var(--accent);border-color:var(--accent)}
+
+  footer{
+    margin-top:clamp(3rem,9vw,4.5rem);
+    padding-top:1.5rem;
+    border-top:1px solid var(--line);
+    color:var(--muted);
+    font-size:.86rem;
+  }
+
+  a:focus-visible,.phone:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:4px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1 class="name">Денис Шандалин</h1>
+    <p class="agency">Агентство Новых Перспектив</p>
+    <p class="tagline">Создание проектов под ключ</p>
+  </header>
+
+  <section>
+    <h2>Обо мне</h2>
+    <p>Я руковожу Агентством Новых Перспектив. Мы берём проект целиком: от первой идеи и сметы до запуска и передачи заказчику в рабочем состоянии.</p>
+    <p>Работаю без посредников между вами и результатом. Если задача выходит за рамки моей компетенции, говорю об этом сразу и подключаю тех, кто её закроет.</p>
+  </section>
+
+  <section>
+    <h2>Чем могу быть полезен</h2>
+    <ul>
+      <li>Запуск проекта с нуля — от концепции до готового решения</li>
+      <li>Ведение проекта под ключ: сроки, бюджет, подрядчики на мне</li>
+      <li>Подбор и координация исполнителей под конкретную задачу</li>
+      <li>Разбор проекта, который застрял, и вывод его к результату</li>
+      <li>Консультация по замыслу до того, как вложены деньги</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Контакты</h2>
+    <a class="phone" href="tel:+79634730159">+7 963 473-01-59</a>
+    <p class="note">Этот же номер — MAX и WhatsApp. Пишите или звоните, отвечаю лично.</p>
+    <p class="actions"><a class="btn" href="https://wa.me/79634730159">Написать в WhatsApp</a></p>
+  </section>
+
+  <footer>
+    Денис Шандалин · Агентство Новых Перспектив
+  </footer>
+
+</div>
+</body>
+</html>
