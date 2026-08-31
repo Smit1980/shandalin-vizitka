@@ -9,7 +9,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500&family=Oswald:wght@600&display=swap" rel="stylesheet">
 
 <script>document.documentElement.className += " js";</script>
 
@@ -25,6 +25,7 @@
     --maxw:760px;
     --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
     --display:"Inter Tight","Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    --display-name:"Oswald","Inter Tight","Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
     --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
 
     /* Motion: кривые и длительности из системы Dylanbrouwer */
@@ -107,11 +108,12 @@
   }
   .name span{
     display:block;
-    font-family:var(--display);
-    font-size:clamp(2.6rem,12.5vw,5rem);
-    line-height:.95;
-    font-weight:700;
-    letter-spacing:-.04em;
+    font-family:var(--display-name);
+    font-size:clamp(2.5rem,12vw,4.75rem);
+    line-height:1;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.002em;
     /* Свет, падающий на монумент: монохромный градиент по тексту */
     background:linear-gradient(175deg,#8e8e93 0%,#d8d6d2 42%,#ffffff 100%);
     -webkit-background-clip:text;
@@ -302,8 +304,8 @@
     transition:opacity var(--t-page) var(--enter),transform var(--t-page) var(--enter);
     transition-delay:calc(var(--i,0) * 70ms);
   }
-  /* Имя выезжает из-под маски */
-  .js .name span{transform:translateY(105%)}
+  /* Имя выезжает из-под маски с лёгким наклоном, выпрямляющимся на ходу */
+  .js .name span{transform:translateY(115%) skewY(3deg)}
   .js .name.in span{
     transform:none;
     transition:transform var(--t-page) var(--enter);
